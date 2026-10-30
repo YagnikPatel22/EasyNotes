@@ -164,10 +164,10 @@
           ${d.note ? `<div class="note">${esc(d.note)}</div>` : ""}
         </div>
         <div class="actions">
-          <button class="icon-btn" data-a="open" title="Open" aria-label="Open">↗</button>
-          <button class="icon-btn" data-a="dl" title="Download" aria-label="Download">⬇</button>
-          <button class="icon-btn" data-a="edit" title="Edit" aria-label="Edit">✎</button>
-          <button class="icon-btn del" data-a="del" title="Delete" aria-label="Delete">🗑</button>
+          <button class="icon-btn" data-a="open" title="Open" aria-label="Open"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></button>
+          <button class="icon-btn" data-a="dl" title="Download" aria-label="Download"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg></button>
+          <button class="icon-btn" data-a="edit" title="Edit" aria-label="Edit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4ZM13.5 6.5l4 4"/></svg></button>
+          <button class="icon-btn del" data-a="del" title="Delete" aria-label="Delete"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button>
         </div>
       </article>`).join("");
   }
