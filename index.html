@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Riff Vault</title>
+  <meta name="description" content="A private vault for guitar notes, music theory and every document you need." />
+  <meta name="theme-color" content="#0b0b0e" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke-linecap='round'%3E%3Crect width='48' height='48' rx='11' fill='%230b0b0e'/%3E%3Cg stroke='%23e8b86a' stroke-width='1.6'%3E%3Cpath d='M24 8 11 41'/%3E%3Cpath d='M24 8 17.5 41'/%3E%3Cpath d='M24 8 30.5 41'/%3E%3Cpath d='M24 8 37 41'/%3E%3C/g%3E%3Cg stroke='%23f3d29c' stroke-width='1.3' opacity='.8'%3E%3Cpath d='M17 24Q24 21.6 31 24'/%3E%3Cpath d='M13.6 33Q24 29.6 34.4 33'/%3E%3C/g%3E%3Ccircle cx='24' cy='8' r='2.2' fill='%23f3d29c' stroke='none'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="theme.js"></script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="rv-fade" gradientUnits="userSpaceOnUse" x1="0" y1="3" x2="0" y2="45">
+        <stop offset="0" stop-color="var(--mark-1)"/><stop offset="1" stop-color="var(--mark-2)" stop-opacity=".25"/>
+      </linearGradient>
+      <linearGradient id="rv-grad" gradientUnits="userSpaceOnUse" x1="4" y1="2" x2="44" y2="46">
+        <stop offset="0" stop-color="var(--mark-1)"/><stop offset="1" stop-color="var(--mark-2)"/>
+      </linearGradient>
+    </defs>
+  </svg>
+  <div class="staff" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="floaters" aria-hidden="true">
+    <span style="--x:6%;--d:0s;--s:24px;--t:24s">♪</span><span style="--x:16%;--d:9s;--s:34px;--t:30s">♬</span>
+    <span style="--x:28%;--d:4s;--s:20px;--t:21s">♩</span><span style="--x:41%;--d:14s;--s:30px;--t:27s">♫</span>
+    <span style="--x:55%;--d:7s;--s:22px;--t:23s">♪</span><span style="--x:67%;--d:2s;--s:36px;--t:32s">𝄞</span>
+    <span style="--x:78%;--d:11s;--s:26px;--t:25s">♬</span><span style="--x:90%;--d:16s;--s:22px;--t:22s">♩</span>
+  </div>
+
+  <!-- ============ AUTH ============ -->
+  <main id="auth-view" class="auth hidden">
+    <section class="auth-card">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 48 48" fill="none" stroke-linecap="round" aria-hidden="true">
+          <g stroke="url(#rv-fade)" stroke-width="1.1"><path d="M24 3 5 45"/><path d="M24 3 10.6 45"/><path d="M24 3 17.8 45"/><path d="M24 3 30.2 45"/><path d="M24 3 37.4 45"/><path d="M24 3 43 45"/></g>
+          <g stroke="url(#rv-grad)" stroke-width="1" opacity=".8"><path d="M16.2 20.8Q24 17.8 31.8 20.8"/><path d="M12.4 30Q24 25.8 35.6 30"/><path d="M8.8 38.4Q24 33.4 39.2 38.4"/></g>
+          <circle cx="24" cy="3.5" r="2" fill="url(#rv-grad)" stroke="none"/>
+        </svg>
+        <span class="brand-text"><span class="brand-name">Riff <em>Vault</em></span><span class="brand-tag">Private library</span></span>
+      </div>
+      <div class="wave" id="wave" aria-hidden="true"></div>
+      <h1 id="auth-title">Welcome back.</h1>
+      <p class="sub" id="auth-sub">Sign in to open your private library.</p>
+
+      <form id="auth-form" novalidate>
+        <label class="field"><span>Email</span>
+          <input type="email" id="email" autocomplete="email" placeholder="you@example.com" required />
+        </label>
+        <label class="field"><span>Password</span>
+          <input type="password" id="password" autocomplete="current-password" placeholder="At least 8 characters" minlength="8" required />
+        </label>
+        <p id="auth-msg" class="msg" role="alert"></p>
+        <button class="btn primary wide" id="auth-submit" type="submit">Sign in</button>
+      </form>
+
+      <p class="switch">
+        <span id="switch-text">New here?</span>
+        <button type="button" class="link" id="switch-btn">Create an account</button>
+      </p>
+    </section>
+  </main>
+
+  <!-- ============ APP ============ -->
+  <div id="app-view" class="app hidden">
+    <aside class="side" id="side">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 48 48" fill="none" stroke-linecap="round" aria-hidden="true">
+          <g stroke="url(#rv-fade)" stroke-width="1.1"><path d="M24 3 5 45"/><path d="M24 3 10.6 45"/><path d="M24 3 17.8 45"/><path d="M24 3 30.2 45"/><path d="M24 3 37.4 45"/><path d="M24 3 43 45"/></g>
+          <g stroke="url(#rv-grad)" stroke-width="1" opacity=".8"><path d="M16.2 20.8Q24 17.8 31.8 20.8"/><path d="M12.4 30Q24 25.8 35.6 30"/><path d="M8.8 38.4Q24 33.4 39.2 38.4"/></g>
+          <circle cx="24" cy="3.5" r="2" fill="url(#rv-grad)" stroke="none"/>
+        </svg>
+        <span class="brand-text"><span class="brand-name">Riff <em>Vault</em></span><span class="brand-tag">Private library</span></span>
+      </div>
+
+      <button class="btn primary wide" id="open-upload">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Add documents
+      </button>
+
+      <nav class="cats" id="cats" aria-label="Categories"></nav>
+
+      <div class="usage">
+        <div class="usage-top"><span>Storage</span><span id="usage-text">0 B / 1 GB</span></div>
+        <div class="bar"><i id="usage-bar"></i></div>
+      </div>
+
+      <div class="who">
+        <span class="avatar" id="avatar">U</span>
+        <span class="who-mail" id="who-mail"></span>
+        <button class="icon-btn" id="signout" title="Sign out" aria-label="Sign out">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <section class="main">
+      <header class="top">
+        <button class="icon-btn menu" id="menu-btn" aria-label="Menu">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <div class="search">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="search" type="search" placeholder="Search names, tags, notes…  ( / )" autocomplete="off" />
+        </div>
+        <select id="sort" aria-label="Sort">
+          <option value="new">Newest</option>
+          <option value="old">Oldest</option>
+          <option value="name">Name A–Z</option>
+          <option value="size">Largest</option>
+        </select>
+        <div class="seg" role="group" aria-label="View">
+          <button id="v-grid" class="on" aria-label="Grid"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></button>
+          <button id="v-list" aria-label="List"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
+        </div>
+      </header>
+
+      <div class="head">
+        <h2 id="list-title">All documents</h2>
+        <span class="count" id="list-count"></span>
+      </div>
+
+      <div id="docs" class="docs grid"></div>
+      <div id="empty" class="empty hidden">
+        <div class="empty-art"><span></span><span></span><span></span><span></span><span></span></div>
+        <h3>Nothing here yet</h3>
+        <p>Drop in your tabs, chord charts, theory notes or any file.</p>
+        <button class="btn primary" id="empty-upload">Add documents</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ UPLOAD MODAL ============ -->
+  <dialog id="upload-dlg">
+    <form method="dialog" class="dlg-head">
+      <h3>Add documents</h3>
+      <button class="icon-btn" aria-label="Close"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </form>
+    <div class="dlg-body">
+      <div class="drop" id="drop" tabindex="0">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+        <p><strong>Drop files here</strong> or click to browse</p>
+        <small>Up to <span id="max-size">1 GB</span> per file · resumable uploads</small>
+        <input type="file" id="file-input" multiple hidden />
+      </div>
+
+      <div class="row2">
+        <label class="field"><span>Category</span>
+          <input id="up-cat" list="cat-list" value="Guitar Notes" />
+          <datalist id="cat-list"></datalist>
+        </label>
+        <label class="field"><span>Tags <small>(comma separated)</small></span>
+          <input id="up-tags" placeholder="e.g. blues, pentatonic" />
+        </label>
+      </div>
+
+      <ul id="queue" class="queue"></ul>
+    </div>
+    <div class="dlg-foot">
+      <button class="btn ghost" id="up-cancel">Close</button>
+      <button class="btn primary" id="up-start" disabled>Upload</button>
+    </div>
+  </dialog>
+
+  <!-- ============ EDIT MODAL ============ -->
+  <dialog id="edit-dlg">
+    <form id="edit-form">
+      <div class="dlg-head"><h3>Edit details</h3>
+        <button class="icon-btn" type="button" id="edit-x" aria-label="Close"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="dlg-body">
+        <label class="field"><span>Name</span><input id="ed-name" required /></label>
+        <div class="row2">
+          <label class="field"><span>Category</span><input id="ed-cat" list="cat-list" /></label>
+          <label class="field"><span>Tags</span><input id="ed-tags" /></label>
+        </div>
+        <label class="field"><span>Note</span><textarea id="ed-note" rows="3" placeholder="Anything you want to remember…"></textarea></label>
+      </div>
+      <div class="dlg-foot">
+        <button class="btn ghost" type="button" id="edit-cancel">Cancel</button>
+        <button class="btn primary" type="submit">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="look">
+    <div class="pop hidden" id="look-pop" role="dialog" aria-label="Appearance">
+      <p class="pop-title">Theme</p><div class="themes"><button class="theme-opt" data-theme-opt="midnight" aria-pressed="false"><span class="sw" style="--p-bg:#0b0b0e;--p-fg:#e8b86a"><i></i><i></i><i></i><i></i></span>Midnight</button><button class="theme-opt" data-theme-opt="obsidian" aria-pressed="false"><span class="sw" style="--p-bg:#000000;--p-fg:#ece8e1"><i></i><i></i><i></i><i></i></span>Obsidian</button><button class="theme-opt" data-theme-opt="ivory" aria-pressed="false"><span class="sw" style="--p-bg:#f5f1e8;--p-fg:#2a2118"><i></i><i></i><i></i><i></i></span>Ivory</button><button class="theme-opt" data-theme-opt="plum" aria-pressed="false"><span class="sw" style="--p-bg:#1a1228;--p-fg:#c6a4f0"><i></i><i></i><i></i><i></i></span>Plum</button></div>
+      <p class="pop-title">Accent colour</p><div class="accents"><button class="acc-opt" data-accent-opt="gold" style="--c:#e8b86a" aria-label="gold" title="Gold" aria-pressed="false"></button><button class="acc-opt" data-accent-opt="rose" style="--c:#ec7896" aria-label="rose" title="Rose" aria-pressed="false"></button><button class="acc-opt" data-accent-opt="emerald" style="--c:#5ec896" aria-label="emerald" title="Emerald" aria-pressed="false"></button><button class="acc-opt" data-accent-opt="sky" style="--c:#64aaf0" aria-label="sky" title="Sky" aria-pressed="false"></button><button class="acc-opt" data-accent-opt="violet" style="--c:#a082f0" aria-label="violet" title="Violet" aria-pressed="false"></button><button class="acc-opt" data-accent-opt="coral" style="--c:#f48260" aria-label="coral" title="Coral" aria-pressed="false"></button></div>
+    </div>
+    <button class="fab" id="look-btn" aria-label="Appearance" aria-expanded="false" title="Theme &amp; colours">
+      <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.9 1.5-1.9-.3-1 .4-2.1 1.5-2.1H17a4 4 0 0 0 4-4c0-5-4.03-10-9-10Z"/><circle cx="7.5" cy="11" r="1.1" fill="currentColor"/><circle cx="10.5" cy="7" r="1.1" fill="currentColor"/><circle cx="15" cy="7.5" r="1.1" fill="currentColor"/></svg>
+    </button>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div id="setup-warn" class="setup hidden">
+    <h2>One-time setup needed</h2>
+    <p>Open <code>config.js</code> and paste your Supabase <b>Project URL</b> and <b>anon key</b>. See README.md.</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tus-js-client@4/dist/tus.min.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
